@@ -1,0 +1,285 @@
+---
+title: "IS-2 Donation Model"
+author: "Clarice Muthoni Gitonga"
+date: "25/10/2023"
+output:
+  github_document: 
+    toc: yes
+    toc_depth: 4
+    fig_width: 6
+    fig_height: 4
+    df_print: default
+editor_options:
+  chunk_output_type: console
+---
+
+# Student Details
+
+|                                              |                 |
+|----------------------------------------------|-----------------|
+| **Student ID Number**                        | 127707          |
+| **Student Name**                             | Clarice Gitonga |
+| **BBIT 4.2 Group**                           | 4.2B            |
+| **Supervisor**                               | Selina Evelia   |
+
+# Introduction
+
+## 1: Install and use renv
+```{r}
+renv::init()
+```
+
+## 2: Loading the dataset
+```{r}
+library(readr)
+census <- read_csv("data/census.csv")
+View(census)
+```
+
+## 3: Preview Loaded Dataset
+### Dimensions 
+Because the dataset is large and has 45222 rows and 14 columns, it will be reduced to 1000 rows and 14 columns.
+```{r}
+dim(census)
+```
+
+Reduce datasets
+```{r}
+census2 <- census[sample(nrow(census), 1000), ]
+View(census2)
+```
+
+Save as CSV
+```{r}
+write.csv(census2, file = "C:/Users/clari/OneDrive/Desktop/API/BIProject/data/census2.csv", row.names = FALSE)
+```
+
+### Data Types
+```{r}
+sapply(census2, class)
+```
+
+# Descriptive Statistics
+## A. Measures of frequency
+```{r}
+census2_freq <- census2$income   # For Income
+cbind(frequency = table(census2_freq),
+      percentage = prop.table(table(census2_freq)) * 100)
+
+census2_freq <- census2$relationship   # For Relationship
+cbind(frequency = table(census2_freq),
+      percentage = prop.table(table(census2_freq)) * 100)
+
+census2_freq <- census2$occupation      # For Occupation
+cbind(frequency = table(census2_freq),
+      percentage = prop.table(table(census2_freq)) * 100)
+
+census2_freq <- census2$workclass        # For workclass
+cbind(frequency = table(census2_freq),
+      percentage = prop.table(table(census2_freq)) * 100)
+
+census2_freq <- census2$education_level   # For education_level
+cbind(frequency = table(census2_freq),
+      percentage = prop.table(table(census2_freq)) * 100)
+
+census2_freq <- census2$`marital-status`   # For marital_status
+cbind(frequency = table(census2_freq),
+      percentage = prop.table(table(census2_freq)) * 100)
+
+census2_freq <- census2$sex   # For sex
+cbind(frequency = table(census2_freq),
+      percentage = prop.table(table(census2_freq)) * 100)
+
+census2_freq <- census2$race   # For race
+cbind(frequency = table(census2_freq),
+      percentage = prop.table(table(census2_freq)) * 100)
+
+census2_freq <- census2$`native-country`   # For native_country
+cbind(frequency = table(census2_freq),
+      percentage = prop.table(table(census2_freq)) * 100)
+
+```
+
+## B.Measures of Central Tendency
+Calculate the Mode
+```{r}
+# For income
+census2_income_mode <- names(table(census2$income))[      
+  which(table(census2$income) == max(table(census2$income)))
+]
+print(census2_income_mode)
+
+# For age
+census2_age_mode <- names(table(census2$age))[      
+  which(table(census2$age) == max(table(census2$age)))
+]
+print(census2_age_mode)
+```
+
+## C. Measure of distribution of the data
+### 1. Summary of Distribution
+```{r}
+summary(census2)
+```
+
+### 2. Standard deviation
+```{r}
+sapply(census[,c(1,4,10,11,12)], sd)
+```
+
+### 3. Measure of Variance
+```{r}
+sapply(census[,c(1,4,10,11,12)], var)
+```
+
+### 4. Measure of Kurtosis
+capital-gain, capital-loss and hours-per-week have a high number of outliers.
+```{r}
+if (!is.element("e1071", installed.packages()[, 1])) {
+  install.packages("e1071", dependencies = TRUE)
+}
+require("e1071")
+
+sapply(census[,c(1,4,10,11,12)], kurtosis, type = 2)
+```
+
+### 5. Measure of Skewness 
+Skewness above 0.4 implies a positive skew; a right-skewed distribution. (age, capital-gain, capital-loss)
+
+Skewness below -0.4 implies a negative skew; a left-skewed distribution.(hours-per-week)
+```{r}
+sapply(census[,c(1,4,10,11,12)], skewness, type = 2)
+```
+
+## D. Measures of Relationship
+### 1. Measure the covariance between variables
+```{r}
+census2_cov <- cov(census2[, c(1,4,10,11,12)])
+View(census2_cov)
+```
+
+### 2. Measure the correlation between variables
+```{r}
+census2_cor <- cor(census2[, c(1,4,10,11,12)])
+View(census2_cor) 
+```
+
+# Inferential Statistics
+### ANOVA
+Dependent variable:	Income.
+Independent variables: age, workclass, education_level, education-num, marital-status, occupation, relationship, race, sex, capital-gain, capital-loss, hours-per-week, native-country.
+
+#### (i) One-Way ANOVA
+```{r}
+result_one_way <- aov(`hours-per-week` ~ education_level, data = census2)
+summary(result_one_way)
+```
+
+#### (ii) Two-Way ANOVA ----
+```{r}
+result_two_way <- aov(`hours-per-week` ~ education_level * `marital-status`, data = census2)
+summary(result_two_way)
+```
+
+# Basic Visualizations
+## (i) Univariate Plots
+### Histograms for Each Numeric Attribute
+```{r}
+# Age
+age <- as.numeric(unlist(census2[, 1]))
+hist(age, main = names(census2)[1])
+
+# Education-num
+`education-num` <- as.numeric(unlist(census2[, 4]))
+hist(`education-num`, main = names(census2)[4])
+
+# Capital-gain
+`capital-gain` <- as.numeric(unlist(census2[, 10]))
+hist(`capital-gain`, main = names(census2)[10])
+
+# Capital-loss
+`capital-loss` <- as.numeric(unlist(census2[, 11]))
+hist(`capital-loss`, main = names(census2)[11])
+
+# hours-per-week
+`hours-per-week` <- as.numeric(unlist(census2[, 12]))
+hist(`hours-per-week`, main = names(census2)[12])
+```
+
+### Box and Whisker Plots for Each Numeric Attribute
+```{r}
+boxplot(census2[, 1], main = names(census2)[1])
+boxplot(census2[, 4], main = names(census2)[4])
+boxplot(census2[, 10], main = names(census2)[10])
+boxplot(census2[, 11], main = names(census2)[11])
+boxplot(census2[, 12], main = names(census2)[12])
+```
+
+### Bar Plots for Each Categorical Attribute
+```{r}
+barplot(table(census2[, 2]), main = names(census2)[2])
+barplot(table(census2[, 3]), main = names(census2)[3])
+barplot(table(census2[, 5]), main = names(census2)[5])
+barplot(table(census2[, 6]), main = names(census2)[6])
+barplot(table(census2[, 7]), main = names(census2)[7])
+barplot(table(census2[, 8]), main = names(census2)[8])
+barplot(table(census2[, 9]), main = names(census2)[9])
+barplot(table(census2[, 13]), main = names(census2)[13])
+barplot(table(census2[, 14]), main = names(census2)[14])
+```
+
+## (ii) Multivariate Plots
+```{r}
+# ggplot
+if (!is.element("ggcorrplot", installed.packages()[, 1])) {
+  install.packages("ggcorrplot", dependencies = TRUE)
+}
+require("ggcorrplot")
+
+# caret
+if (!is.element("caret", installed.packages()[, 1])) {
+  install.packages("caret", dependencies = TRUE)
+}
+require("caret")
+
+# listenv
+if (!requireNamespace("listenv", quietly = TRUE)) {
+  install.packages("listenv", dependencies = TRUE)
+}
+library(listenv)
+
+# parallelly
+if (!requireNamespace("parallelly", quietly = TRUE)) {
+  install.packages("parallelly", dependencies = TRUE)
+}
+library(parallelly)
+
+# globals
+if (!is.element("globals", installed.packages()[, 1])) {
+  install.packages("globals", dependencies = TRUE)
+}
+library(globals)
+```
+
+#### Correlation Plot
+```{r}
+ggcorrplot(cor(census2[,c(1,4,10,11,12)]))
+```
+
+#### Create a Scatter Plot ----
+```{r}
+pairs(~ age  + `education-num` + `hours-per-week`, data = census2, col = as.numeric(factor(census2$income)))
+
+# Alternatively, the ggcorrplot package can be used to make the plots more
+# appealing:
+ggplot(census2,
+       aes(x = `hours-per-week`, y = `marital-status`, shape = income, color = income)) +
+  geom_point() +
+  geom_smooth(method = lm)
+```
+
+### Multivariate Box and Whisker Plots by Class
+```{r}
+featurePlot(x = census2[, c(1,4,10,11,12)], y = census2[, 14], plot = "box")
+```
+
