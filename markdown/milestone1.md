@@ -1,10 +1,10 @@
 IS-2 Donation Model
 ================
 Clarice Muthoni Gitonga
-25/10/2023
+17/11/2023
 
 - [Student Details](#student-details)
-- [Introduction](#introduction)
+- [Introduction to Milestone 1](#introduction-to-milestone-1)
   - [1: Install and use renv](#1-install-and-use-renv)
   - [2: Loading the dataset](#2-loading-the-dataset)
   - [3: Preview Loaded Dataset](#3-preview-loaded-dataset)
@@ -28,7 +28,7 @@ Clarice Muthoni Gitonga
 - [Inferential Statistics](#inferential-statistics)
   - [ANOVA](#anova)
     - [(i) One-Way ANOVA](#i-one-way-anova)
-    - [(ii) Two-Way ANOVA —-](#ii-two-way-anova--)
+    - [(ii) Two-Way ANOVA](#ii-two-way-anova)
 - [Basic Visualizations](#basic-visualizations)
   - [(i) Univariate Plots](#i-univariate-plots)
     - [Histograms for Each Numeric
@@ -52,7 +52,7 @@ Clarice Muthoni Gitonga
 | **BBIT 4.2 Group**    | 4.2B            |
 | **Supervisor**        | Selina Evelia   |
 
-# Introduction
+# Introduction to Milestone 1
 
 ## 1: Install and use renv
 
@@ -132,8 +132,8 @@ cbind(frequency = table(census2_freq),
 ```
 
     ##       frequency percentage
-    ## <=50K       741       74.1
-    ## >50K        259       25.9
+    ## <=50K       774       77.4
+    ## >50K        226       22.6
 
 ``` r
 census2_freq <- census2$relationship   # For Relationship
@@ -142,12 +142,12 @@ cbind(frequency = table(census2_freq),
 ```
 
     ##                frequency percentage
-    ## Husband              418       41.8
-    ## Not-in-family        247       24.7
+    ## Husband              402       40.2
+    ## Not-in-family        265       26.5
     ## Other-relative        32        3.2
     ## Own-child            153       15.3
-    ## Unmarried            108       10.8
-    ## Wife                  42        4.2
+    ## Unmarried             95        9.5
+    ## Wife                  53        5.3
 
 ``` r
 census2_freq <- census2$occupation      # For Occupation
@@ -156,20 +156,19 @@ cbind(frequency = table(census2_freq),
 ```
 
     ##                   frequency percentage
-    ## Adm-clerical            108       10.8
-    ## Armed-Forces              1        0.1
-    ## Craft-repair            130       13.0
-    ## Exec-managerial         146       14.6
-    ## Farming-fishing          33        3.3
-    ## Handlers-cleaners        50        5.0
-    ## Machine-op-inspct        67        6.7
-    ## Other-service            97        9.7
-    ## Priv-house-serv           5        0.5
-    ## Prof-specialty          138       13.8
-    ## Protective-serv          21        2.1
-    ## Sales                   107       10.7
-    ## Tech-support             32        3.2
-    ## Transport-moving         65        6.5
+    ## Adm-clerical            118       11.8
+    ## Craft-repair            143       14.3
+    ## Exec-managerial         127       12.7
+    ## Farming-fishing          32        3.2
+    ## Handlers-cleaners        36        3.6
+    ## Machine-op-inspct        81        8.1
+    ## Other-service           105       10.5
+    ## Priv-house-serv           4        0.4
+    ## Prof-specialty          130       13.0
+    ## Protective-serv          18        1.8
+    ## Sales                   130       13.0
+    ## Tech-support             25        2.5
+    ## Transport-moving         51        5.1
 
 ``` r
 census2_freq <- census2$workclass        # For workclass
@@ -178,12 +177,12 @@ cbind(frequency = table(census2_freq),
 ```
 
     ##                  frequency percentage
-    ## Federal-gov             32        3.2
-    ## Local-gov               78        7.8
-    ## Private                727       72.7
-    ## Self-emp-inc            33        3.3
-    ## Self-emp-not-inc        92        9.2
-    ## State-gov               36        3.6
+    ## Federal-gov             23        2.3
+    ## Local-gov               61        6.1
+    ## Private                731       73.1
+    ## Self-emp-inc            38        3.8
+    ## Self-emp-not-inc        95        9.5
+    ## State-gov               50        5.0
     ## Without-pay              2        0.2
 
 ``` r
@@ -193,21 +192,22 @@ cbind(frequency = table(census2_freq),
 ```
 
     ##              frequency percentage
-    ## 10th                22        2.2
-    ## 11th                34        3.4
-    ## 12th                16        1.6
-    ## 1st-4th              6        0.6
-    ## 5th-6th             14        1.4
-    ## 7th-8th             21        2.1
-    ## 9th                 13        1.3
-    ## Assoc-acdm          30        3.0
-    ## Assoc-voc           46        4.6
-    ## Bachelors          164       16.4
-    ## Doctorate            7        0.7
-    ## HS-grad            322       32.2
-    ## Masters             65        6.5
-    ## Prof-school         24        2.4
-    ## Some-college       216       21.6
+    ## 10th                27        2.7
+    ## 11th                35        3.5
+    ## 12th                18        1.8
+    ## 1st-4th              3        0.3
+    ## 5th-6th             16        1.6
+    ## 7th-8th             20        2.0
+    ## 9th                 15        1.5
+    ## Assoc-acdm          29        2.9
+    ## Assoc-voc           44        4.4
+    ## Bachelors          176       17.6
+    ## Doctorate            6        0.6
+    ## HS-grad            332       33.2
+    ## Masters             52        5.2
+    ## Preschool            6        0.6
+    ## Prof-school         15        1.5
+    ## Some-college       206       20.6
 
 ``` r
 census2_freq <- census2$`marital-status`   # For marital_status
@@ -216,13 +216,13 @@ cbind(frequency = table(census2_freq),
 ```
 
     ##                       frequency percentage
-    ## Divorced                    149       14.9
+    ## Divorced                    131       13.1
     ## Married-AF-spouse             1        0.1
-    ## Married-civ-spouse          469       46.9
-    ## Married-spouse-absent         7        0.7
-    ## Never-married               325       32.5
-    ## Separated                    28        2.8
-    ## Widowed                      21        2.1
+    ## Married-civ-spouse          461       46.1
+    ## Married-spouse-absent        21        2.1
+    ## Never-married               322       32.2
+    ## Separated                    29        2.9
+    ## Widowed                      35        3.5
 
 ``` r
 census2_freq <- census2$sex   # For sex
@@ -231,8 +231,8 @@ cbind(frequency = table(census2_freq),
 ```
 
     ##        frequency percentage
-    ## Female       316       31.6
-    ## Male         684       68.4
+    ## Female       330         33
+    ## Male         670         67
 
 ``` r
 census2_freq <- census2$race   # For race
@@ -242,10 +242,10 @@ cbind(frequency = table(census2_freq),
 
     ##                    frequency percentage
     ## Amer-Indian-Eskimo        11        1.1
-    ## Asian-Pac-Islander        21        2.1
-    ## Black                     89        8.9
-    ## Other                      7        0.7
-    ## White                    872       87.2
+    ## Asian-Pac-Islander        29        2.9
+    ## Black                    107       10.7
+    ## Other                     11        1.1
+    ## White                    842       84.2
 
 ``` r
 census2_freq <- census2$`native-country`   # For native_country
@@ -255,34 +255,33 @@ cbind(frequency = table(census2_freq),
 
     ##                    frequency percentage
     ## Cambodia                   1        0.1
-    ## Canada                     9        0.9
-    ## China                      4        0.4
-    ## Columbia                   1        0.1
+    ## Canada                     6        0.6
+    ## China                      6        0.6
     ## Cuba                       5        0.5
-    ## Dominican-Republic         1        0.1
+    ## Dominican-Republic         3        0.3
+    ## Ecuador                    2        0.2
     ## El-Salvador                3        0.3
-    ## England                    4        0.4
-    ## France                     1        0.1
-    ## Germany                    6        0.6
-    ## Greece                     1        0.1
-    ## Guatemala                  4        0.4
-    ## Haiti                      1        0.1
+    ## England                    3        0.3
+    ## Germany                    4        0.4
+    ## Guatemala                  2        0.2
+    ## Haiti                      2        0.2
     ## Hungary                    1        0.1
-    ## India                      2        0.2
-    ## Ireland                    1        0.1
+    ## India                      6        0.6
     ## Italy                      2        0.2
     ## Jamaica                    2        0.2
-    ## Japan                      1        0.1
-    ## Mexico                    19        1.9
+    ## Japan                      2        0.2
+    ## Mexico                    21        2.1
     ## Nicaragua                  3        0.3
-    ## Philippines                2        0.2
-    ## Poland                     3        0.3
-    ## Portugal                   2        0.2
-    ## Puerto-Rico                1        0.1
-    ## Scotland                   1        0.1
-    ## Trinadad&Tobago            1        0.1
-    ## United-States            916       91.6
-    ## Vietnam                    2        0.2
+    ## Philippines                3        0.3
+    ## Poland                     2        0.2
+    ## Portugal                   1        0.1
+    ## Puerto-Rico                3        0.3
+    ## South                      2        0.2
+    ## Taiwan                     2        0.2
+    ## Trinadad&Tobago            3        0.3
+    ## United-States            903       90.3
+    ## Vietnam                    3        0.3
+    ## Yugoslavia                 4        0.4
 
 ## B.Measures of Central Tendency
 
@@ -316,13 +315,13 @@ print(census2_age_mode)
 summary(census2)
 ```
 
-    ##       age         workclass         education_level    education-num  
-    ##  Min.   :17.00   Length:1000        Length:1000        Min.   : 2.00  
-    ##  1st Qu.:29.00   Class :character   Class :character   1st Qu.: 9.00  
-    ##  Median :38.00   Mode  :character   Mode  :character   Median :10.00  
-    ##  Mean   :39.06                                         Mean   :10.14  
-    ##  3rd Qu.:48.00                                         3rd Qu.:13.00  
-    ##  Max.   :90.00                                         Max.   :16.00  
+    ##       age         workclass         education_level    education-num   
+    ##  Min.   :17.00   Length:1000        Length:1000        Min.   : 1.000  
+    ##  1st Qu.:28.00   Class :character   Class :character   1st Qu.: 9.000  
+    ##  Median :38.00   Mode  :character   Mode  :character   Median :10.000  
+    ##  Mean   :38.69                                         Mean   : 9.983  
+    ##  3rd Qu.:47.00                                         3rd Qu.:12.000  
+    ##  Max.   :78.00                                         Max.   :16.000  
     ##  marital-status      occupation        relationship           race          
     ##  Length:1000        Length:1000        Length:1000        Length:1000       
     ##  Class :character   Class :character   Class :character   Class :character  
@@ -331,12 +330,12 @@ summary(census2)
     ##                                                                             
     ##                                                                             
     ##      sex             capital-gain    capital-loss     hours-per-week 
-    ##  Length:1000        Min.   :    0   Min.   :   0.00   Min.   : 1.00  
+    ##  Length:1000        Min.   :    0   Min.   :   0.00   Min.   : 8.00  
     ##  Class :character   1st Qu.:    0   1st Qu.:   0.00   1st Qu.:40.00  
     ##  Mode  :character   Median :    0   Median :   0.00   Median :40.00  
-    ##                     Mean   : 1558   Mean   :  87.85   Mean   :41.29  
+    ##                     Mean   : 1097   Mean   :  85.46   Mean   :41.18  
     ##                     3rd Qu.:    0   3rd Qu.:   0.00   3rd Qu.:45.00  
-    ##                     Max.   :99999   Max.   :2415.00   Max.   :99.00  
+    ##                     Max.   :99999   Max.   :2444.00   Max.   :99.00  
     ##  native-country        income         
     ##  Length:1000        Length:1000       
     ##  Class :character   Class :character  
@@ -348,11 +347,11 @@ summary(census2)
 ### 2. Standard deviation
 
 ``` r
-sapply(census[,c(1,4,10,11,12)], sd)
+sapply(census2[,c(1,4,10,11,12)], sd)
 ```
 
     ##            age  education-num   capital-gain   capital-loss hours-per-week 
-    ##      13.217870       2.552881    7506.430084     404.956092      12.007508
+    ##      12.857592       2.623279    7480.249876     392.734211      11.945498
 
 ### 3. Measure of Variance
 
@@ -432,12 +431,12 @@ summary(result_one_way)
 ```
 
     ##                  Df Sum Sq Mean Sq F value   Pr(>F)    
-    ## education_level  14  13613   972.4   6.297 3.39e-12 ***
-    ## Residuals       985 152100   154.4                     
+    ## education_level  15   8177   545.1   3.992 4.54e-07 ***
+    ## Residuals       984 134375   136.6                     
     ## ---
     ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
-#### (ii) Two-Way ANOVA —-
+#### (ii) Two-Way ANOVA
 
 ``` r
 result_two_way <- aov(`hours-per-week` ~ education_level * `marital-status`, data = census2)
@@ -445,10 +444,10 @@ summary(result_two_way)
 ```
 
     ##                                   Df Sum Sq Mean Sq F value   Pr(>F)    
-    ## education_level                   14  13613   972.4   6.713 3.62e-13 ***
-    ## `marital-status`                   6  10594  1765.7  12.190 3.14e-13 ***
-    ## education_level:`marital-status`  47   6506   138.4   0.956    0.559    
-    ## Residuals                        932 135000   144.8                     
+    ## education_level                   15   8177   545.1   4.236 1.19e-07 ***
+    ## `marital-status`                   6   5278   879.6   6.836 4.12e-07 ***
+    ## education_level:`marital-status`  49   9556   195.0   1.515    0.014 *  
+    ## Residuals                        929 119542   128.7                     
     ## ---
     ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
@@ -660,11 +659,6 @@ ggplot(census2,
     ## `geom_smooth()` using formula = 'y ~ x'
 
     ## Warning in qt((1 - level)/2, df): NaNs produced
-
-    ## Warning in qt((1 - level)/2, df): NaNs produced
-
-    ## Warning in max(ids, na.rm = TRUE): no non-missing arguments to max; returning
-    ## -Inf
 
     ## Warning in max(ids, na.rm = TRUE): no non-missing arguments to max; returning
     ## -Inf
