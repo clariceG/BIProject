@@ -10,7 +10,7 @@
 # See LICENSE file for licensing information.
 # *****************************************************************************
 
-# Introduction ----
+# Introduction to Milestone 1 ----
 
 ## 1: Install and use renv ----
 renv::init()
@@ -149,7 +149,7 @@ sapply(census[,c(1,4,10,11,12)], kurtosis, type = 2)
 # 3. Skewness below -0.4 implies a negative skew; 
 # a left-skewed distribution.(hours-per-week)
 
-sapply(census[,c(1,4,10,11,12)], skewness, type = 2)
+sapply(census2[,c(1,4,10,11,12)], skewness, type = 2)
 
 
 ## D. Measures of Relationship ----
@@ -270,3 +270,8 @@ ggplot(census2,
 
 ### Multivariate Box and Whisker Plots by Class ----
 featurePlot(x = census2[, 10:12], y = census2[, 14], plot = "box")
+
+# References ----
+# Karlan, A., Dean; Wood, S., Daniel H., (2017), "The Effect of Effectiveness: 
+#Donor Response to Aid Effectiveness in a Direct Mail Fundraising Experiment", 
+#https://doi.org/10.7910/DVN/RDHJQZ, Harvard Dataverse, (Version 1),
