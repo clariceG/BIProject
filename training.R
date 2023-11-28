@@ -1,0 +1,365 @@
+# *****************************************************************************
+# BI-PROJECT ----
+
+# Course Code: BBT4206
+# Course Name: Business Intelligence II
+
+# Student: Clarice Muthoni.
+
+# License: GNU GPL-3.0-or-later
+# See LICENSE file for licensing information.
+# *****************************************************************************
+
+# Introduction to Milestone 3 ----
+
+## 1. Loading the dataset ----
+library(readr)
+census <- read_csv("data/census.csv")
+View(census)
+
+# Reduce datasets
+census2 <- census[sample(nrow(census), 1000), ]
+View(census2)
+
+# Save as CSV
+write.csv(census2, file = "C:/Users/clari/OneDrive/Desktop/API/BIProject/data/census2.csv", row.names = FALSE)
+
+# Now, census2 will be the dataset that will be used throughout the 
+# the project.
+
+## 2. Install and Load the Required Packages ----
+
+## caret
+if (require("caret")) {
+  require("caret")
+} else {
+  install.packages("caret", dependencies = TRUE,
+                   repos = "https://cloud.r-project.org")
+}
+
+## klaR
+if (require("klaR")) {
+  require("klaR")
+} else {
+  install.packages("klaR", dependencies = TRUE,
+                   repos = "https://cloud.r-project.org")
+}
+
+## e1071
+if (require("e1071")) {
+  require("e1071")
+} else {
+  install.packages("e1071", dependencies = TRUE,
+                   repos = "https://cloud.r-project.org")
+}
+
+## readr
+if (require("readr")) {
+  require("readr")
+} else {
+  install.packages("readr", dependencies = TRUE,
+                   repos = "https://cloud.r-project.org")
+}
+
+## LiblineaR
+if (require("LiblineaR")) {
+  require("LiblineaR")
+} else {
+  install.packages("LiblineaR", dependencies = TRUE,
+                   repos = "https://cloud.r-project.org")
+}
+
+## naivebayes
+if (require("naivebayes")) {
+  require("naivebayes")
+} else {
+  install.packages("naivebayes", dependencies = TRUE,
+                   repos = "https://cloud.r-project.org")
+}
+
+## kernlab
+if (require("kernlab")) {
+  require("kernlab")
+} else {
+  install.packages("kernlab", dependencies = TRUE,
+                   repos = "https://cloud.r-project.org")
+}
+
+## rpart
+if (require("rpart")) {
+  require("rpart")
+} else {
+  install.packages("rpart", dependencies = TRUE,
+                   repos = "https://cloud.r-project.org")
+}
+
+
+## MASS
+if (require("MASS")) {
+  require("MASS")
+} else {
+  install.packages("MASS", dependencies = TRUE,
+                   repos = "https://cloud.r-project.org")
+}
+
+## glmnet
+if (require("glmnet")) {
+  require("glmnet")
+} else {
+  install.packages("glmnet", dependencies = TRUE,
+                   repos = "https://cloud.r-project.org")
+}
+
+## stats
+if (require("stats")) {
+  require("stats")
+} else {
+  install.packages("stats", dependencies = TRUE,
+                   repos = "https://cloud.r-project.org")
+}
+
+## corrplot
+if (!is.element("corrplot", installed.packages()[, 1])) {
+  install.packages("corrplot", dependencies = TRUE)
+}
+require("corrplot")
+
+## ggcorrplot
+if (!is.element("ggcorrplot", installed.packages()[, 1])) {
+  install.packages("ggcorrplot", dependencies = TRUE)
+}
+require("ggcorrplot")
+
+## Amelia
+if (!is.element("Amelia", installed.packages()[, 1])) {
+  install.packages("Amelia", dependencies = TRUE)
+}
+require("Amelia")
+
+## dplyr - For data manipulation
+if (!is.element("dplyr", installed.packages()[, 1])) {
+  install.packages("dplyr", dependencies = TRUE)
+}
+require("dplyr")
+
+## ggplot2 - For data visualizations using the Grammar for Graphics package
+if (!is.element("ggplot2", installed.packages()[, 1])) {
+  install.packages("ggplot2", dependencies = TRUE)
+}
+require("ggplot2")
+
+## ggrepel - Additional options for the Grammar for Graphics package
+if (!is.element("ggrepel", installed.packages()[, 1])) {
+  install.packages("ggrepel", dependencies = TRUE)
+}
+require("ggrepel")
+
+## ggraph - Additional options for the Grammar for Graphics package
+if (!is.element("ggraph", installed.packages()[, 1])) {
+  install.packages("ggraph", dependencies = TRUE)
+}
+require("ggraph")
+
+## tidytext - For text mining
+if (!is.element("tidytext", installed.packages()[, 1])) {
+  install.packages("tidytext", dependencies = TRUE)
+}
+require("tidytext")
+
+## tidyr - To tidy messy data
+if (!is.element("tidyr", installed.packages()[, 1])) {
+  install.packages("tidyr", dependencies = TRUE)
+}
+require("tidyr")
+
+## widyr - To widen, process, and re-tidy a dataset
+if (!is.element("widyr", installed.packages()[, 1])) {
+  install.packages("widyr", dependencies = TRUE)
+}
+require("widyr")
+
+## gridExtra - to arrange multiple grid-based plots on a page
+if (!is.element("gridExtra", installed.packages()[, 1])) {
+  install.packages("gridExtra", dependencies = TRUE)
+}
+require("gridExtra")
+
+## knitr - for dynamic report generation
+if (!is.element("knitr", installed.packages()[, 1])) {
+  install.packages("knitr", dependencies = TRUE)
+}
+require("knitr")
+
+## kableExtra - for nicely formatted output tables
+if (!is.element("kableExtra", installed.packages()[, 1])) {
+  install.packages("kableExtra", dependencies = TRUE)
+}
+require("kableExtra")
+
+## formattable -  To create a formattable object
+# A formattable object is an object to which a formatting function and related
+# attributes are attached.
+if (!is.element("formattable", installed.packages()[, 1])) {
+  install.packages("formattable", dependencies = TRUE)
+}
+require("formattable")
+
+## circlize - To create a cord diagram or visualization
+# by Gu et al. (2014)
+if (!is.element("circlize", installed.packages()[, 1])) {
+  install.packages("circlize", dependencies = TRUE)
+}
+require("circlize")
+
+## memery - For creating data analysis related memes
+# The memery package generates internet memes that optionally include a
+# superimposed inset plot and other atypical features, combining the visual
+# impact of an attention-grabbing meme with graphic results of data analysis.
+if (!is.element("memery", installed.packages()[, 1])) {
+  install.packages("memery", dependencies = TRUE)
+}
+require("memery")
+
+## magick - For image processing in R
+if (!is.element("magick", installed.packages()[, 1])) {
+  install.packages("magick", dependencies = TRUE)
+}
+require("magick")
+
+## yarrr - To create a pirate plot 
+if (!is.element("yarrr", installed.packages()[, 1])) {
+  install.packages("yarrr", dependencies = TRUE)
+}
+require("yarrr")
+
+## radarchart - To create interactive radar charts using ChartJS 
+if (!is.element("radarchart", installed.packages()[, 1])) {
+  install.packages("radarchart", dependencies = TRUE)
+}
+require("radarchart")
+
+## igraph - To create ngram network diagrams 
+if (!is.element("igraph", installed.packages()[, 1])) {
+  install.packages("igraph", dependencies = TRUE)
+}
+require("igraph")
+
+## wordcloud2 - For creating wordcloud by using 'wordcloud2.JS 
+if (!is.element("wordcloud2", installed.packages()[, 1])) {
+  install.packages("wordcloud2", dependencies = TRUE)
+}
+require("wordcloud2")
+
+## textdata - Download sentiment lexicons and labeled text data sets 
+if (!is.element("textdata", installed.packages()[, 1])) {
+  install.packages("textdata", dependencies = TRUE)
+}
+require("textdata")
+
+## stringr - For processing characters in a string
+if (!is.element("stringr", installed.packages()[, 1])) {
+  install.packages("stringr", dependencies = TRUE,
+                   repos = "https://cloud.r-project.org")
+}
+require("stringr")
+
+## pROC
+if (require("pROC")) {
+  require("pROC")
+} else {
+  install.packages("pROC", dependencies = TRUE,
+                   repos = "https://cloud.r-project.org")
+}
+
+# Algorithm Selection for Classification ----
+## A. Linear Algorithms ----
+### 1. Generalized Linear Model----
+# Define a 75:25 train:test data split of the dataset.
+train_index <- createDataPartition(census2$income,
+                                   p = 0.75,
+                                   list = FALSE)
+census_train <- census2[train_index, ]
+census_test <- census2[-train_index, ]
+
+#### Train the Model ----
+# We apply the 5-fold cross validation resampling method
+train_control <- trainControl(method = "cv", number = 5)
+
+set.seed(7)
+income_model_glm <-
+  train(income ~ ., data = census_train, method = "glm",
+        metric = "Accuracy", trControl = train_control)
+
+#### Display the Model's Performance ----
+print(income_model_glm)
+
+#### Make predictions ----
+predictions <- predict(income_model_glm, census_test[, 1:13])
+
+#### Display the model's evaluation metrics ----
+confusion_matrix <-
+  caret::confusionMatrix(predictions,as.factor(
+    census_test[, 1:14]$income))
+
+print(confusion_matrix)
+
+fourfoldplot(as.table(confusion_matrix), color = c("grey", "lightblue"),
+             main = "Confusion Matrix")
+
+### 2. Logistics regression ----
+library(readr)
+census2 <- read_csv("data/census2.csv")
+
+# drop native-country
+census2 <- subset(census2, select = -`native-country`)
+
+# Define a 70:30 train:test data split of the dataset.
+train_index <- createDataPartition(census2$income,
+                                   p = 0.7,
+                                   list = FALSE)
+census_train <- census2[train_index, ]
+census_test <- census2[-train_index, ]
+
+#### Train the model ----
+# We apply the 5-fold cross validation resampling method
+train_control <- trainControl(method = "cv", number = 5)
+# We can use "regLogistic" instead of "glm"
+# Notice the data transformation applied when we call the train function
+# in caret, i.e., a standardize data transform (centre + scale)
+set.seed(7)
+income_caret_model_logistic <-
+  train(income ~ ., data = census_train,
+        method = "regLogistic", metric = "Accuracy",
+        preProcess = c("center", "scale"), trControl = train_control)
+
+#### Display the model's details ----
+print(income_caret_model_logistic)
+
+#### Make predictions ----
+predictions <- predict(income_caret_model_logistic,
+                       census_test[, 1:13])
+# Identify new levels
+new_levels <- setdiff(levels(census_test$workclass), levels(income_caret_model_logistic$terms$workclass))
+
+# Check the new levels
+print(new_levels)
+
+# Set the levels of workclass in the testing dataset to match the training dataset
+census_test$workclass <- factor(census_test$workclass, levels = levels(income_caret_model_logistic$terms$workclass))
+
+# Now, try making predictions
+predictions <- predict(income_caret_model_logistic, census_test[, 1:13])
+
+print(predictions)
+#### Display the model's evaluation metrics ----
+
+confusion_matrix <-
+  caret::confusionMatrix(predictions,as.factor(
+    census_test[, 1:13]$income))
+
+print(confusion_matrix)
+
+fourfoldplot(as.table(confusion_matrix), color = c("grey", "lightblue"),
+             main = "Confusion Matrix")
+
+
